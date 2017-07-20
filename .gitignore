@@ -1,0 +1,9 @@
+/Events-*
+**/.project
+**/.classpath
+**/.settings
+**/target
+**/*.versionsBackup
+**/.DS_Store
+
+/bin/
