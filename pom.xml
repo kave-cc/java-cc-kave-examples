@@ -16,7 +16,7 @@
 			<plugins>
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.1</version>
+					<version>3.6.1</version>
 					<configuration>
 						<source>1.8</source>
 						<target>1.8</target>
@@ -30,7 +30,7 @@
 		<dependency>
 			<groupId>cc.kave</groupId>
 			<artifactId>cc.kave.commons</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.1</version>
 		</dependency>
 	</dependencies>
 </project>
