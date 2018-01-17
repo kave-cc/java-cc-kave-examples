@@ -21,11 +21,12 @@ import com.google.common.collect.Sets;
 
 import cc.kave.commons.model.events.completionevents.Context;
 import cc.kave.commons.model.naming.Names;
+import cc.kave.commons.model.naming.codeelements.IMethodName;
 import cc.kave.commons.model.naming.types.ITypeName;
 import cc.kave.commons.model.ssts.ISST;
 import cc.kave.commons.model.ssts.impl.declarations.MethodDeclaration;
 import cc.kave.commons.model.ssts.impl.statements.ReturnStatement;
-import cc.kave.commons.model.typeshapes.IMethodHierarchy;
+import cc.kave.commons.model.typeshapes.IMemberHierarchy;
 import cc.kave.commons.model.typeshapes.ITypeHierarchy;
 import cc.kave.commons.model.typeshapes.ITypeShape;
 import cc.kave.commons.utils.io.json.JsonUtils;
@@ -63,7 +64,7 @@ public class Examples {
 		// ... as well as information about the implemented methods within this
 		// class, e.g., which original method was overridden by the
 		// declaration
-		Set<IMethodHierarchy> methodHierarchies = ts.getMethodHierarchies();
+		Set<IMemberHierarchy<IMethodName>> methodHierarchies = ts.getMethodHierarchies();
 
 		// you can access the "simplified syntax tree" (SST), our intermediate
 		// representation, which includes the normalized representation of a

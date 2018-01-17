@@ -26,7 +26,7 @@ import cc.kave.commons.model.naming.types.ITypeName;
 import cc.kave.commons.model.ssts.ISST;
 import cc.kave.commons.model.ssts.IStatement;
 import cc.kave.commons.model.ssts.declarations.IMethodDeclaration;
-import cc.kave.commons.model.typeshapes.IMethodHierarchy;
+import cc.kave.commons.model.typeshapes.IMemberHierarchy;
 import cc.kave.commons.model.typeshapes.ITypeHierarchy;
 import cc.kave.commons.model.typeshapes.ITypeShape;
 import cc.kave.commons.utils.io.IReadingArchive;
@@ -108,8 +108,8 @@ public class GettingStartedContexts {
 		}
 
 		// a type shape contains hierarchy info for all methods declared in the SST
-		Set<IMethodHierarchy> mhs = ts.getMethodHierarchies();
-		for (IMethodHierarchy mh : mhs) {
+		Set<IMemberHierarchy<IMethodName>> mhs = ts.getMethodHierarchies();
+		for (IMemberHierarchy<IMethodName> mh : mhs) {
 			// the declared element (you will find the same name in the SST)
 			IMethodName elem = mh.getElement();
 
@@ -121,6 +121,14 @@ public class GettingStartedContexts {
 			// (may be null)
 			IMethodName first = mh.getFirst();
 		}
+
+		// you can also access hierarchy information about other members...
+		ts.getDelegates();
+		ts.getEventHierarchies();
+		ts.getFields();
+		ts.getPropertyHierarchies();
+		// ... and nested types
+		ts.getNestedTypes();
 	}
 
 	private void process(ISST sst) {

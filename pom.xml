@@ -13,13 +13,6 @@
 	<!-- All you need to work with our datasetis to add the following dependency. 
 		It will be fetched from the central repository, there is no need to configure 
 		additional package sources. -->
-	<dependencies>
-		<dependency>
-			<groupId>cc.kave</groupId>
-			<artifactId>cc.kave.commons</artifactId>
-			<version>0.0.1</version>
-		</dependency>
-	</dependencies>
 
 	<!-- The remaining settings in this file are basic configuration options. -->
 
@@ -47,4 +40,12 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<dependencies>
+		<!-- all you need to do to get started is add the KaVE.Commons dependency -->
+		<dependency>
+			<groupId>cc.kave</groupId>
+			<artifactId>cc.kave.commons</artifactId>
+			<version>0.0.2</version>
+		</dependency>
+	</dependencies>
 </project>

@@ -60,7 +60,8 @@ public class GettingStarted {
 		// open the .zip file ...
 		try (IReadingArchive ra = new ReadingArchive(new File(eventsDir, userZip))) {
 			// ... and iterate over content.
-			// the iteration will stop after 200 events to speed things up.
+			// the iteration will stop after 200 events to speed things up, remove this
+			// guard to process all events.
 			while (ra.hasNext() && (numProcessedEvents++ < 200)) {
 				/*
 				 * within the userZip, each stored event is contained as a single file that
@@ -68,7 +69,6 @@ public class GettingStarted {
 				 */
 				IDEEvent e = ra.getNext(IDEEvent.class);
 
-				// the events can then be processed individually
 				processEvent(e);
 			}
 		}
@@ -110,6 +110,7 @@ public class GettingStarted {
 	}
 
 	private void process(CompletionEvent e) {
+
 		ISST snapshotOfEnclosingType = e.context.getSST();
 		String enclosingTypeName = snapshotOfEnclosingType.getEnclosingType().getFullName();
 

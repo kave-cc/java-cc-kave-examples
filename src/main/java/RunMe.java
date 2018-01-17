@@ -15,8 +15,7 @@
  * the License.
  */
 
-import examples.GettingStarted;
-import examples.GettingStartedContexts;
+import examples.CountEventTypeExample;
 
 public class RunMe {
 
@@ -26,16 +25,17 @@ public class RunMe {
 	 * includes a bunch of folders that have dates as names and that contain .zip
 	 * files.
 	 */
-	public static String eventsDir = "Events-170301";
+	public static String eventsDir = "/Volumes/Data/Events-170301-2";
 
 	/*
 	 * download the context data and follow the same instructions as before.
 	 */
-	public static String contextsDir = "Contexts-170301";
+	public static String contextsDir = "Contexts-170503";
 
 	public static void main(String[] args) {
 
-		new GettingStarted(eventsDir).run();
-		new GettingStartedContexts(contextsDir).run();
+		// new GettingStarted(eventsDir).run();
+		new CountEventTypeExample(eventsDir).run();
+		// new GettingStartedContexts(contextsDir).run();
 	}
-}
+};
