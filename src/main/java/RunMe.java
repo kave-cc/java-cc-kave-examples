@@ -16,6 +16,7 @@
  */
 
 import examples.CountEventTypeExample;
+import examples.rsse.calls.BMNMining;
 
 public class RunMe {
 
@@ -34,8 +35,13 @@ public class RunMe {
 
 	public static void main(String[] args) {
 
+		// BASIC DATA READING
+		
 		// new GettingStarted(eventsDir).run();
 		new CountEventTypeExample(eventsDir).run();
 		// new GettingStartedContexts(contextsDir).run();
+		
+		// RSSE RELATED EXAMPLES
+		new BMNMining().run();
 	}
 };
