@@ -20,8 +20,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.io.FileUtils;
-
 import com.google.common.collect.Lists;
 
 import cc.kave.commons.model.events.completionevents.Context;
@@ -66,8 +64,8 @@ public class IoHelper {
 	}
 
 	/*
-	 * will recursively search for all .zip files in the "dir". The paths
-	 * that are returned are relative to "dir".
+	 * will recursively search for all .zip files in the "dir". The paths that are
+	 * returned are relative to "dir".
 	 */
 	public static Set<String> findAllZips(String dir) {
 		return new Directory(dir).findFiles(s -> s.endsWith(".zip"));

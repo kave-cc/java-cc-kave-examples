@@ -32,6 +32,7 @@ import cc.kave.commons.model.typeshapes.ITypeShape;
 import cc.kave.commons.utils.io.IReadingArchive;
 import cc.kave.commons.utils.io.ReadingArchive;
 
+@SuppressWarnings("unused")
 public class GettingStartedContexts {
 
 	private String ctxsDir;
