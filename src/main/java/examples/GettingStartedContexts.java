@@ -26,6 +26,7 @@ import cc.kave.commons.model.naming.types.ITypeName;
 import cc.kave.commons.model.ssts.ISST;
 import cc.kave.commons.model.ssts.IStatement;
 import cc.kave.commons.model.ssts.declarations.IMethodDeclaration;
+import cc.kave.commons.model.ssts.impl.visitor.AbstractTraversingNodeVisitor;
 import cc.kave.commons.model.typeshapes.IMemberHierarchy;
 import cc.kave.commons.model.typeshapes.ITypeHierarchy;
 import cc.kave.commons.model.typeshapes.ITypeShape;
@@ -70,11 +71,11 @@ public class GettingStartedContexts {
 		try (IReadingArchive ra = new ReadingArchive(new File(ctxsDir, slnZip))) {
 			// ... and iterate over content.
 
-			// the iteration will stop after 10 contexts to speed things up.
+			// the iteration will stop after 10 contexts to speed things up in the example.
 			while (ra.hasNext() && (numProcessedContexts++ < 10)) {
 				/*
 				 * within the slnZip, each stored context is contained as a single file that
-				 * contains the Json representation of a Context.
+				 * contains the Json representation of a {@see Context}.
 				 */
 				Context ctx = ra.getNext(Context.class);
 
@@ -96,13 +97,54 @@ public class GettingStartedContexts {
 		process(ctx.getTypeShape());
 	}
 
+	private void process(ISST sst) {
+		// SSTs represent a simplified meta model for source code. You can use the
+		// various accessors to browse the contained information
+
+		// which type was edited?
+		ITypeName declType = sst.getEnclosingType();
+
+		// which methods are defined?
+		for (IMethodDeclaration md : sst.getMethods()) {
+			IMethodName m = md.getName();
+
+			for (IStatement stmt : md.getBody()) {
+				// process the body, most likely by traversing statements with an {@see
+				// ISSTNodeVisitor}
+				stmt.accept(new ExampleVisitor(), null);
+			}
+		}
+
+		// all references to types or type elements are fully qualified and preserve
+		// many information about the resolved type
+		declType.getNamespace();
+		declType.isInterfaceType();
+		declType.getAssembly();
+
+		// you can distinguish reused types from types defined in a local project
+		boolean isLocal = declType.getAssembly().isLocalProject();
+
+		// the same is possible for all other <see>IName</see> subclasses, e.g.,
+		// <see>IMethodName</see>
+		IMethodName m = Names.getUnknownMethod();
+		m.getDeclaringType();
+		m.getReturnType();
+		// or inspect the signature
+		for (IParameterName p : m.getParameters()) {
+			String pid = p.getName();
+			ITypeName ptype = p.getValueType();
+		}
+	}
+
 	private void process(ITypeShape ts) {
 		// a type shape contains hierarchy info for the declared type
 		ITypeHierarchy th = ts.getTypeHierarchy();
 		// the type that is being declared in the SST
 		ITypeName tElem = th.getElement();
 		// the type might extend another one (that again has a hierarchy)
-		ITypeName tExt = th.getExtends().getElement();
+		if (th.getExtends() != null) {
+			ITypeName tExt = th.getExtends().getElement();
+		}
 		// or implement interfaces...
 		for (ITypeHierarchy tImpl : th.getImplements()) {
 			ITypeName tInterf = tImpl.getElement();
@@ -132,43 +174,8 @@ public class GettingStartedContexts {
 		ts.getNestedTypes();
 	}
 
-	private void process(ISST sst) {
-		// SSTs represent a simplified meta model for source code. You can use the
-		// various accessors to browse the contained information
-
-		// which type was edited?
-		ITypeName declType = sst.getEnclosingType();
-
-		// which methods are defined?
-		for (IMethodDeclaration md : sst.getMethods()) {
-			IMethodName m = md.getName();
-
-			for (IStatement stmt : md.getBody()) {
-				// process the body...
-				/// most likely, you will have to write an <see>ISSTNodeVisitor</see>
-				stmt.accept(null, null);
-			}
-		}
-
-		// all references to types or type elements are fully qualified and preserve
-		// many information about the resolved type
-		declType.getNamespace();
-		declType.isInterfaceType();
-		declType.getAssembly();
-
-		// you can distinguish reused types from types defined in a local project
-		boolean isLocal = declType.getAssembly().isLocalProject();
-
-		// the same is possible for all other <see>IName</see> subclasses, e.g.,
-		// <see>IMethodName</see>
-		IMethodName m = Names.getUnknownMethod();
-		m.getDeclaringType();
-		m.getReturnType();
-		// or inspect the signature
-		for (IParameterName p : m.getParameters()) {
-			String pid = p.getName();
-			ITypeName ptype = p.getValueType();
-		}
-
+	private class ExampleVisitor extends AbstractTraversingNodeVisitor<Object, Object> {
+		// empty implementation for the example, in reality, you will either reuse
+		// existing {@see ISSTNodeVisitor} or build your own subclass.
 	}
 }

@@ -21,6 +21,9 @@ import cc.kave.commons.utils.io.Logger;
 import cc.kave.rsse.calls.mining.Options;
 import cc.kave.rsse.calls.utils.OptionsBuilder;
 import cc.kave.rsse.calls.utils.json.JsonUtilsCcKaveRsseCalls;
+import examples.CountEventTypeExample;
+import examples.GettingStarted;
+import examples.GettingStartedContexts;
 import examples.rsse.calls.BMNEvaluation;
 import examples.rsse.calls.BMNMining;
 
@@ -35,27 +38,23 @@ public class RunMe {
 	 * includes a bunch of folders that have dates as names and that contain .zip
 	 * files.
 	 */
-	// public static String dirEvents = dirRoot + "Events-170301-2";
 	public static String dirEvents = dirRoot + "someevents/";
 
 	/*
 	 * download the context data and follow the same instructions as before.
 	 */
-	// public static String dirContexts = dirRoot + "Contexts-170503";
 	public static String dirContexts = dirRoot + "somecontexts/";
-
-	// private static final String dirContexts = dirRoot + "morecontexts/";
-	// private static final String dirContexts = "/Volumes/Data/Contexts-170503/";
 
 	public static void main(String[] args) {
 		init();
-		// BASIC DATA READING
 
-		// new GettingStarted(dirEvents).run();
-		// new CountEventTypeExample(dirEvents).run();
-		// new GettingStartedContexts(dirContexts).run();
+		// examples for BASIC DATA READING
 
-		// RSSE RELATED EXAMPLES
+		new GettingStarted(dirEvents).run();
+		new CountEventTypeExample(dirEvents).run();
+		new GettingStartedContexts(dirContexts).run();
+
+		// RSSE related examples
 
 		runRoundtrip_BMN();
 	}
@@ -82,8 +81,8 @@ public class RunMe {
 		Logger.setPrinting(true);
 
 		double gb = 1024 * 1024 * 1024;
-		log("Make sure that you have enough memory, I typically use at least 8GB when processing the complete datasets...");
-		log("Max Memory: %.1f GB", Runtime.getRuntime().maxMemory() / gb);
+		log("Make sure that your memory limit is increased, using at least 8GB is recommended to process the KaVE datasets...  (-Xmx8G)");
+		log("Current max. memory: %.1f GB", Runtime.getRuntime().maxMemory() / gb);
 
 		JsonUtilsCcKaveRsseCalls.registerJsonAdapters();
 	}
